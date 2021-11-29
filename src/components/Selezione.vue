@@ -1,9 +1,21 @@
 <template>
+<header>
+    <div id="spotify">
+      <img
+        src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Spotify_App_Logo.svg/2048px-Spotify_App_Logo.svg.png"
+        alt=""
+      />
+      <div id="cerca">
+        <input type="text" placeholder="search" v-model.trim="inputUtente" />
+        <button @click.prevent="ricerca">search</button>
+      </div>
+    </div>
   <div id="container-big">
     <div class="containcards">
-      <Cards v-for="(song, i) in canzoni" :key="i" :details="song" />
+      <Cards v-for="(song, i) in filtraSong" :key="i" :details="song" />
     </div>
   </div>
+</header>
 </template>
 
 
@@ -21,15 +33,33 @@ export default {
     return {
       apiUrl: "https://flynn.boolean.careers/exercises/api/array/music",
       canzoni: [],
+      imputUtente: "",
+      searchText: "",
     };
   },
-  created() {},
+  created() {
+    this.getCards();
+  },
+  computed:{
+      filtraSong(){
+          if(this.searchText === ""){
+              return this.canzoni;
+          }
+          return this.canzoni.filter((item) => {
+              return item.title.toLowerCase().includes(this.searchText.toLowerCase())
+          })
+      }
+  },
+
   methods: {
     getCards() {
       axios.get(this.apiUrl).then((result) => {
-        this.canzoni = result.data;
+        this.canzoni = result.data.response;
       });
     },
+    ricerca(){
+        this.searchText = this.imputUtente;
+    }
   },
 };
 </script>
@@ -47,21 +77,18 @@ export default {
     flex-wrap: wrap;
     height: 700px;
     width: 80%;
-    .cards {
-      text-align: center;
-      height: 40%;
-      width: calc(90% / 5);
-      background-color: rgb(36, 37, 47);
-      img {
-        width: 150px;
-      }
-      h1 {
-        color: white;
-      }
-      h4 {
-        color: lightgray;
-      }
-    }
+  }
+}
+#spotify {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100px;
+  width: 100%;
+  background-color: grey;
+  img {
+    width: 80px;
+    height: 80px;
   }
 }
 </style>

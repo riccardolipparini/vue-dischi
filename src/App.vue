@@ -1,20 +1,17 @@
 <template>
   <div id="app">
-    <Background/>
     <Selezione/>
     
   </div>
 </template>
 
 <script>
-import Background from './components/Background.vue'
-import Selezione from './components/Selezione.vue'
+import Selezione from '@/components/Selezione.vue'
 
 
 export default {
   name: 'App',
   components: {
-    Background,
     Selezione,
     
   }

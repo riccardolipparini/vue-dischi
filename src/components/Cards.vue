@@ -20,7 +20,7 @@ export default {
 <style lang="scss">
 .cards {
   text-align: center;
-  height: 40%;
+  height: 45%;
   width: calc(90% / 5);
   background-color: rgb(36, 37, 47);
   img {
@@ -28,6 +28,7 @@ export default {
   }
   h1 {
     color: white;
+    font-size: 20px;
   }
   h4 {
     color: lightgray;
