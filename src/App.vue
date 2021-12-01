@@ -1,26 +1,23 @@
 <template>
   <div id="app">
     <header id="banner-logo">
-        <!-- <img src="@/assets/logo-spotify.png" alt=""> -->
       <div id="cont-select">
-        <!-- :list="listGen" -->
-          <Filterselect  :list="newListGenFromSon" @search="selectOption"/>
+        <Filterselect :list="newListGenFromSon" @search="selectOption" />
       </div>
     </header>
     <main>
-      <Selezione :details="optionChoise" @newListDisk="creationList"/>
+      <Selezione :details="optionChoise" @newListDisk="creationList" />
     </main>
   </div>
 </template>
 
 <script>
-import Filterselect from '@/components/Filterselect.vue'
-import Selezione from './components/Selezione.vue'
-// import MyHeader from './components/MyHeader.vue'
+import Filterselect from "@/components/Filterselect.vue";
+import Selezione from "./components/Selezione.vue";
+
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    // MyHeader,
     Selezione,
     Filterselect,
   },
@@ -28,24 +25,23 @@ export default {
     return {
       optionChoise: "all",
       newListGenFromSon: null,
-    }
+    };
   },
   computed: {
-    listGen2(){
-      return this.listGen3
-    }
+    listGen2() {
+      return this.listGen3;
+    },
   },
   methods: {
-    // salvo il valore della scelta utente
-    selectOption(genere){
+    selectOption(genere) {
       this.optionChoise = genere;
-      console.log("hai selezionato: ",this.optionChoise);
+      console.log("hai selezionato: ", this.optionChoise);
     },
-    creationList(item){
-      this.newListGenFromSon = item
-    }
-  }
-}
+    creationList(item) {
+      this.newListGenFromSon = item;
+    },
+  },
+};
 </script>
 
 <style lang="scss">

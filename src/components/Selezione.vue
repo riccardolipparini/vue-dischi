@@ -2,7 +2,7 @@
 <div>
   <div id="container">
     <Cards 
-    v-for="disk, i in filteredListDisk" 
+    v-for="disk, i in filteredListCards" 
     :key="i" 
     :details="disk"/> 
     
@@ -24,7 +24,7 @@ export default {
   },
   data() {
     return {
-      // devo spostare il valore di listGen nell'app tramite un emit
+      
         apiUrl: "https://flynn.boolean.careers/exercises/api/array/music",
         listDisk: [],
         listGen: [],
@@ -36,7 +36,7 @@ export default {
   },
   computed:{
     // creo un nuovo array per filtrare i contenuti in pagina
-    filteredListDisk(){
+    filteredListCards(){
       if(this.details === "all"){
         return this.listDisk
       }
@@ -66,7 +66,6 @@ export default {
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
   #container {
     margin: 0 auto;
