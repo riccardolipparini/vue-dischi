@@ -1,37 +1,50 @@
+
+  
 <template>
-  <div class="cards">
-    <img :src="details.poster" alt="" />
-    <h1>{{details.title}}</h1>
-    <h4>{{details.author}}</h4>
-    <h4>{{details.year}}</h4>
-  </div>
+    <div class="container-card">
+        <div class="card">
+            <img :src="details.poster" :alt="details.title">
+            <h2>{{ details.title }}</h2>
+            <div>{{ details.author }}</div>
+            <div>{{ details.year }}</div>
+        </div>
+    </div>
 </template>
 
 <script>
 export default {
   name: "Cards",
   props: {
-      details: Object
-  }
-
+      details:Object
+  },
 };
 </script>
 
-<style lang="scss">
-.cards {
-  text-align: center;
-  height: 45%;
-  width: calc(90% / 5);
-  background-color: rgb(36, 37, 47);
-  img {
-    width: 150px;
-  }
-  h1 {
-    color: white;
-    font-size: 20px;
-  }
-  h4 {
-    color: lightgray;
-  }
-}
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped lang="scss">
+    .container-card {
+        width: 20%;
+        padding: 10px;
+        margin-bottom: 50px;
+        text-align: center;
+        .card {
+            background-color: #2e3a46;
+            min-height: 100%;
+            
+            img {
+                max-width: 85%;
+                margin-top: 20px;
+            }
+            h2 {
+                color: white;
+                margin: 15px 0;
+            }
+            div {
+                color: gray;
+                margin: 10px 0;
+                font-size: 18px;
+                font-weight: bold;
+            }
+        }
+    }
 </style>

@@ -1,94 +1,79 @@
 <template>
-<header>
-    <div id="spotify">
-      <img
-        src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Spotify_App_Logo.svg/2048px-Spotify_App_Logo.svg.png"
-        alt=""
-      />
-      <div id="cerca">
-        <input type="text" placeholder="search" v-model.trim="inputUtente" />
-        <button @click.prevent="ricerca">search</button>
-      </div>
-    </div>
-  <div id="container-big">
-    <div class="containcards">
-      <Cards v-for="(song, i) in filtraSong" :key="i" :details="song" />
-    </div>
+<div>
+  <div id="container">
+    <Cards 
+    v-for="disk, i in filteredListDisk" 
+    :key="i" 
+    :details="disk"/> 
+    
   </div>
-</header>
+</div>
+  
 </template>
 
-
-
 <script>
-import axios from "axios";
-import Cards from "@/components/Cards.vue";
-
+import Cards from '@/components/Cards.vue'
+import Axios from 'axios'
 export default {
   name: "Selezione",
   components: {
     Cards,
   },
+  props: {
+    details:String
+  },
   data() {
     return {
-      apiUrl: "https://flynn.boolean.careers/exercises/api/array/music",
-      canzoni: [],
-      imputUtente: "",
-      searchText: "",
+      // devo spostare il valore di listGen nell'app tramite un emit
+        apiUrl: "https://flynn.boolean.careers/exercises/api/array/music",
+        listDisk: [],
+        listGen: [],
     };
   },
-  created() {
-    this.getCards();
+  created(){
+    this.getArray();
+    this.$emit('newListDisk', this.listGen)
   },
   computed:{
-      filtraSong(){
-          if(this.searchText === ""){
-              return this.canzoni;
-          }
-          return this.canzoni.filter((item) => {
-              return item.title.toLowerCase().includes(this.searchText.toLowerCase())
-          })
+    // creo un nuovo array per filtrare i contenuti in pagina
+    filteredListDisk(){
+      if(this.details === "all"){
+        return this.listDisk
       }
+      return this.listDisk.filter((item) => {
+        return item.genre.toLowerCase().includes(this.details.toLowerCase())
+      })
+    },
   },
-
   methods: {
-    getCards() {
-      axios.get(this.apiUrl).then((result) => {
-        this.canzoni = result.data.response;
+    getArray(){
+      Axios
+      .get(this.apiUrl)
+      .then((result) =>{
+        this.listDisk = result.data.response
+        this.allGen();
       });
     },
-    ricerca(){
-        this.searchText = this.imputUtente;
-    }
-  },
+    // funzione che ultilizzo per creare un array senza doppioni
+    allGen(){
+      for(let i = 0; i < this.listDisk.length; i++){
+        if(!this.listGen.includes(this.listDisk[i].genre)){
+          this.listGen.push(this.listDisk[i].genre)
+        }
+      }
+    },
+  }
 };
 </script>
 
-<style lang="scss">
-#container-big {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background-color: rgb(42, 43, 66);
-  .containcards {
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped lang="scss">
+  #container {
+    margin: 0 auto;
+    width: 60%;
     display: flex;
-    justify-content: space-between;
     flex-wrap: wrap;
-    height: 700px;
-    width: 80%;
+    align-items: stretch;
+    padding: 100px 0;
   }
-}
-#spotify {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 100px;
-  width: 100%;
-  background-color: grey;
-  img {
-    width: 80px;
-    height: 80px;
-  }
-}
 </style>

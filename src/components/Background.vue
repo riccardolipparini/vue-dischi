@@ -5,10 +5,10 @@
         src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Spotify_App_Logo.svg/2048px-Spotify_App_Logo.svg.png"
         alt=""
       />
-      <div id="cerca">
-        <input type="text" placeholder="search" v-model.trim="inputUtente" />
-        <button>search</button>
-      </div>
+      <select>
+      <option value="">Seleziona un Genere</option>
+      <option></option>
+      </select>
     </div>
   </header>
 </template>
@@ -16,7 +16,7 @@
 <script>
 export default {
   name: "Background",
-  components: {},
+
 };
 </script>
 
